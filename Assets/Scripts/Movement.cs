@@ -4,25 +4,101 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rb;
+    [Header ("Movement")]
     [SerializeField]
     float speed;
+    public float groundDrag;
+    public float jumpForce;
+    public float jumpCoolDown;
+    public float airMultiplier;
+    bool readyToJump = true;
+
+    [Header("Keybinds")]
+    public KeyCode jumpKey = KeyCode.Space;
+
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask isGround;
+    bool grounded;
+
+    public Transform orientation;
+
+    float horizontalInput;
+    float verticalInput;
+
+    Vector3 moveDirection;
+
+    Rigidbody rb;
+    
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponentInChildren<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        //ground check
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, isGround);
+        MyInput();
+        SpeedControl();
 
-        if (horizontal == 0 && vertical == 0)
-            return;
+        //handle drag
+        if (grounded)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
+    }
 
-        Vector3 direction = (gameObject.transform.forward * vertical + gameObject.transform.right * horizontal) * speed * Time.deltaTime;
-        rb.velocity = direction;
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+    void MyInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+
+        if(Input.GetKeyDown(jumpKey) && readyToJump && grounded)
+        {
+            readyToJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCoolDown);
+        }
+    }
+
+    void MovePlayer()
+    {
+        // calculate movement direction
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        if(grounded)
+            rb.AddForce(moveDirection.normalized * speed * 10.0f, ForceMode.Force);
+        else
+            rb.AddForce(moveDirection.normalized * speed * 10.0f * airMultiplier, ForceMode.Force);
+    }
+
+    void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if(flatVel.magnitude > speed)
+        {
+            Vector3 limitedVel = flatVel.normalized * speed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+    }
+
+    void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    void ResetJump()
+    {
+        readyToJump = true;
     }
 }
