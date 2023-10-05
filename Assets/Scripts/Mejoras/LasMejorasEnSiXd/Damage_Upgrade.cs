@@ -9,6 +9,8 @@ public class Damage_Upgrade : Upgrade
 
     public override void Upg()
     {
-        Object.FindObjectOfType<Stats>().AddDamage(2);
+        Stats props = Object.FindObjectOfType<Stats>();
+        props.AddDamage(2);
+        Object.FindObjectOfType<GameManager>().DmgUpd(props.GetDamage());
     }
 }

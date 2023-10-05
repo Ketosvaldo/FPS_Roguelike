@@ -22,12 +22,14 @@ public class KennyMovement : MonoBehaviour
 
     [SerializeField]
     int health = 100;
+    GameManager manager;
 
     void Start()
     {
         transform.position = PatrolPoints[0];
         actualPoint = 0;
         rb = GetComponent<Rigidbody>();
+        manager = FindAnyObjectByType<GameManager>();
     }
 
     private void Update()
@@ -154,6 +156,7 @@ public class KennyMovement : MonoBehaviour
 
     void Death()
     {
+        manager.ReducirEnemigos();
         Destroy(gameObject);
     }
 }

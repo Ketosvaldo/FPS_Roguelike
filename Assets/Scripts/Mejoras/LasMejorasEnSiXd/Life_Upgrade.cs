@@ -9,6 +9,8 @@ public class Life_Upgrade : Upgrade
 
     public override void Upg()
     {
-        Object.FindObjectOfType<Stats>().HealthUp(20);
+        Stats props = Object.FindObjectOfType<Stats>();
+        props.HealthUp(20);
+        Object.FindObjectOfType<GameManager>().LifeUpd(props.GetCurrentHealth(), props.GetHealth());
     }
 }

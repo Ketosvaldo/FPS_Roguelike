@@ -12,5 +12,8 @@ public class DD_HL_Upgrade : Upgrade
         Stats props = Object.FindObjectOfType<Stats>();
         props.AddDamage(props.GetDamage());
         props.SetHealth(props.GetHealth() / 2);
+        GameManager GM = Object.FindObjectOfType<GameManager>();
+        GM.DmgUpd(props.GetDamage());
+        GM.LifeUpd(props.GetCurrentHealth(), props.GetHealth());
     }
 }

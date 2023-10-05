@@ -24,16 +24,27 @@ public class UpgradeGenerator : MonoBehaviour
             randomNum[1] = Random.Range(0, allUpgrades.Length);
         }
         description[0].text = allUpgrades[randomNum[0]].description();
-        description[1].text = allUpgrades[randomNum[2]].description();
+        description[1].text = allUpgrades[randomNum[1]].description();
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     public void Upgrade1()
     {
-        allUpgrades[0].Upg();
+        allUpgrades[randomNum[0]].Upg();
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        UpgradeUI.SetActive(false);
     }
 
     public void Upgrade2()
     {
-        allUpgrades[1].Upg();
+        allUpgrades[randomNum[1]].Upg();
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        UpgradeUI.SetActive(false);
     }
 }

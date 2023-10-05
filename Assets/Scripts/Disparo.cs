@@ -19,7 +19,7 @@ public class Disparo : MonoBehaviour
             counter += Time.deltaTime;
             if (counter < fireRate)
                 return;
-            if (kunai) 
+            if (kunai)
             {
                 GameObject newKunai = Instantiate(kunaiGO, spawnPoint.transform.position, spawnPoint.transform.rotation);
                 newKunai.transform.Rotate(0, -90, 0);
@@ -32,6 +32,7 @@ public class Disparo : MonoBehaviour
             GameObject newBala = Instantiate(balaGO, spawnPoint.transform.position, spawnPoint.transform.rotation);
             Bala newBalaProps = newBala.GetComponent<Bala>();
             newBalaProps.SetVelocity(100.0f);
+            newBalaProps.SetDamage(2);
             counter = 0;
             return;
         }

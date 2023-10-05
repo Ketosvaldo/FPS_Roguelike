@@ -9,6 +9,9 @@ public class Speed_Upgrade : Upgrade
 
     public override void Upg()
     {
-        Object.FindObjectOfType<Movement>().AddSpeed(2.0f);
+        Debug.Log("Hola");
+        Movement move = Object.FindObjectOfType<Movement>();
+        move.AddSpeed(2);
+        Object.FindObjectOfType<GameManager>().SpdUpd(move.GetSpeed());
     }
 }

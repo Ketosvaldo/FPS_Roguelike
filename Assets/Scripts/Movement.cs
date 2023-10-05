@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 {
     [Header ("Movement")]
     [SerializeField]
-    float speed;
+    int speed;
     public float groundDrag;
     public float jumpForce;
     public float jumpCoolDown;
@@ -102,8 +102,13 @@ public class Movement : MonoBehaviour
         readyToJump = true;
     }
 
-    public void AddSpeed(float speed)
+    public void AddSpeed(int speed)
     {
         this.speed += speed;
+    }
+
+    public int GetSpeed()
+    {
+        return speed;
     }
 }

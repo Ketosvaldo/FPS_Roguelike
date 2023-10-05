@@ -48,4 +48,9 @@ public class Stats : MonoBehaviour
         maxHealth = newHealthValue;
         health = maxHealth;
     }
+
+    public int GetCurrentHealth()
+    {
+        return health;
+    }
 }
