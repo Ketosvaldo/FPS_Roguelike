@@ -9,7 +9,6 @@ public class Bala : MonoBehaviour
 
     void Start()
     {
-        damage = 2 * FindObjectOfType<Stats>().GetDamage();
         Destroy(gameObject, 10f);
     }
 
@@ -26,5 +25,17 @@ public class Bala : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.TransformDirection(Vector3.forward) * speed;
+    }
+
+    public void SetKunaiVelocity(float speed)
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.TransformDirection(Vector3.right) * speed;
+    }
+
+    public void SetDamage(int damage)
+    {
+        this.damage = damage;
+        this.damage *= FindObjectOfType<Stats>().GetDamage();
     }
 }

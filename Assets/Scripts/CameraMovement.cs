@@ -12,6 +12,8 @@ public class CameraMovement : MonoBehaviour
 
     const string xAxis = "Mouse X";
     const string yAxis = "Mouse Y";
+
+    public GameObject[] WeaponsModels;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -30,5 +32,18 @@ public class CameraMovement : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
+
+    public void DeactivateAllModels()
+    {
+        for(int i = 0; i < WeaponsModels.Length; i++)
+        {
+            WeaponsModels[i].gameObject.SetActive(false);
+        }
+    }
+
+    public void ActivateWeapon(int index)
+    {
+        WeaponsModels[index].SetActive(true);
     }
 }

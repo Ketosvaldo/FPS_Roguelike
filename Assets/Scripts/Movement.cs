@@ -101,4 +101,9 @@ public class Movement : MonoBehaviour
     {
         readyToJump = true;
     }
+
+    public void AddSpeed(float speed)
+    {
+        this.speed += speed;
+    }
 }
