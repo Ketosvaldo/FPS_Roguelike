@@ -5,6 +5,7 @@ public class UpgradeGenerator : MonoBehaviour
 {
     public GameObject UpgradeUI;
     public TextMeshProUGUI[] description;
+    public GameManager manager;
 
     Upgrade[] allUpgrades = { 
         new DD_HL_Upgrade(),
@@ -28,6 +29,7 @@ public class UpgradeGenerator : MonoBehaviour
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        manager = FindObjectOfType<GameManager>();
     }
 
     public void Upgrade1()
@@ -37,6 +39,9 @@ public class UpgradeGenerator : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         UpgradeUI.SetActive(false);
+        FindObjectOfType<Movement>().gameObject.transform.position = new Vector3(-62, 0, 98);
+        manager.ResetEnemyCounter();
+        gameObject.SetActive(false);
     }
 
     public void Upgrade2()
@@ -46,5 +51,8 @@ public class UpgradeGenerator : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         UpgradeUI.SetActive(false);
+        FindObjectOfType<Movement>().gameObject.transform.position = new Vector3(-62, 0, 98);
+        manager.ResetEnemyCounter();
+        gameObject.SetActive(false);
     }
 }

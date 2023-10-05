@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,17 @@ public class Stats : MonoBehaviour
 
     int damage = 5;
 
+    private GameManager manager;
+
+    private void Start()
+    {
+        manager = FindObjectOfType<GameManager>();
+    }
+
     public void MakeDamage(int damageEnemy)
     {
         health -= damageEnemy;
+        manager.LifeUpd(health, maxHealth);
         if(health <= 0)
             Death();
     }

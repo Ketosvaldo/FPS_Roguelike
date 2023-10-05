@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     static int enemigosTotales;
     public GameObject UpgradeGen;
+    public GameObject EnemyLevel2;
 
     public TextMeshProUGUI life;
     public TextMeshProUGUI speed;
@@ -39,5 +40,11 @@ public class GameManager : MonoBehaviour
     public void SpdUpd(int speed)
     {
         this.speed.text = "Velocidad: " + speed; 
+    }
+
+    public void ResetEnemyCounter()
+    {
+        EnemyLevel2.SetActive(true);
+        enemigosTotales = 3;
     }
 }
